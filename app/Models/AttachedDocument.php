@@ -9,4 +9,12 @@ class AttachedDocument extends Model
 {
     /** @use HasFactory<\Database\Factories\AttachedDocumentFactory> */
     use HasFactory;
+
+    protected $fillable = [
+		'school_black_list_id',
+		'document_type',
+        'file_path'
+	];
+
+
 }

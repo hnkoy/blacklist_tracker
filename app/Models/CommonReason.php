@@ -9,4 +9,8 @@ class CommonReason extends Model
 {
     /** @use HasFactory<\Database\Factories\CommonReasonFactory> */
     use HasFactory;
+
+    protected $fillable = [
+		'title',
+	];
 }

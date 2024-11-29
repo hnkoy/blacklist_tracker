@@ -9,4 +9,9 @@ class University extends Model
 {
     /** @use HasFactory<\Database\Factories\UniversityFactory> */
     use HasFactory;
+
+    protected $fillable = [
+		'name',
+        'location',
+	];
 }
