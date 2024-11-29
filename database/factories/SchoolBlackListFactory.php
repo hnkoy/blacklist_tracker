@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\School;
+use App\Models\StudentTeacher;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,8 @@ class SchoolBlackListFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+           'school_id'=>School::all()->random()->id,
+           'student_teacher_id'=>StudentTeacher::all()->random()->id,   
         ];
     }
 }

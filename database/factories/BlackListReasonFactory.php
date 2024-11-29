@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\CommonReason;
+use App\Models\SchoolBlackList;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,9 @@ class BlackListReasonFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+           'school_black_list_id'=>SchoolBlackList::all()->random()->id,
+           'common_reason_id'=>CommonReason::all()->random()->id,
+           'comment' => fake()->text(100),
         ];
     }
 }

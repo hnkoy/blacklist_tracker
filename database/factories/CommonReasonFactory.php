@@ -17,7 +17,8 @@ class CommonReasonFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+
+            'title' => fake()->title(),
         ];
     }
 }

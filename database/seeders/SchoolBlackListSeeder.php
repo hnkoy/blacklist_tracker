@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\SchoolBlackList;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,6 @@ class SchoolBlackListSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        SchoolBlackList::factory(100)->create();
     }
 }

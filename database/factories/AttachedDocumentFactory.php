@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\SchoolBlackList;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,9 @@ class AttachedDocumentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+           'school_black_list_id'=>SchoolBlackList::all()->random()->id,
+           'document_type' => fake()->rand(['pdf_file','video','audio','image']),
+           'file_path' => fake()->rand([fake()->filePath,fake()->imageUrl()]),
         ];
     }
 }
