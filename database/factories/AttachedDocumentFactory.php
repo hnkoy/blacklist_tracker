@@ -19,8 +19,8 @@ class AttachedDocumentFactory extends Factory
     {
         return [
            'school_black_list_id'=>SchoolBlackList::all()->random()->id,
-           'document_type' => fake()->rand(['pdf_file','video','audio','image']),
-           'file_path' => fake()->rand([fake()->filePath,fake()->imageUrl()]),
+           'document_type' => fake()->randomElement(['pdf_file','video','audio','image']),
+           'file_path' => fake()->randomElement([fake()->filePath,fake()->imageUrl()]),
         ];
     }
 }

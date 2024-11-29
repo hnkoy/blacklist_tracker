@@ -20,7 +20,7 @@ class StudentTeacherFactory extends Factory
         return [
             'firstname' => fake()->firstName(),
             'lastname' => fake()->lastName(),
-            'gender' => fake()->rand(['M', 'F']),
+            'gender' => fake()->randomElement(['M', 'F']),
             'province' => fake()->name(),
             'city' => fake()->city(),
             'street_address' => fake()->streetAddress(),
