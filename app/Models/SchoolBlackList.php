@@ -21,7 +21,7 @@ class SchoolBlackList extends Model
 
 	}
 
-    public function Teacher()
+    public function studentTeacher()
 	{
         return $this->belongsTo(StudentTeacher::class);
 

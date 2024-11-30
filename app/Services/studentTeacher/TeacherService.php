@@ -19,9 +19,19 @@ class TeacherService {
         return $teacher;
     }
 
+    public function toGetAll( $n = 100 ) {
+        $teachers = StudentTeacher::with( 'schoolBlackListed' )
+        ->withCount( 'schoolBlackListed' )
+        ->with('university')
+        ->paginate( $n );
+
+        return $teachers;
+    }
+
     public function toGetById( $id ): Model |null {
         $teacher = StudentTeacher::
         with('schoolBlackListed')
+        ->with('university')
         ->withCount('schoolBlackListed')
         ->findOrFail( $id );
         return $teacher;

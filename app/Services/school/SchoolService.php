@@ -5,7 +5,7 @@ namespace App\Services\school;
 use App\Models\School;
 use Illuminate\Database\Eloquent\Model;
 
-class TeacherService {
+class SchoolService {
 
     /**
     *
@@ -16,6 +16,14 @@ class TeacherService {
     public function toAdd( array $inputs ): Model {
         $school = School::create( $inputs );
         return $school;
+    }
+
+    public function toGetAll( $n = 100 ) {
+        $blacklist = School::with( 'blackListedTeachers' )
+        ->withCount( 'blackListedTeachers' )
+        ->paginate( $n );
+
+        return $blacklist;
     }
 
     public function toGetById( $id ): Model |null {

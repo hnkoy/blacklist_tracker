@@ -26,6 +26,7 @@ class BlackListService {
 
     public function toGetAll( $n = 100 ) {
         $blacklist = SchoolBlackList::with( 'school' )
+        ->with( 'studentTeacher' )
         ->with( 'blackListedReasons' )
         ->with( 'AttachedDocuments' )
         ->withCount( 'blackListedReasons' )
