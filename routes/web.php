@@ -34,6 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/studentTeachers/destroy/{id}', [StudentTeacherController::class, 'destroy'])->name('studentTeachers.destroy');
     Route::get('/studentTeachers/edit/{id}', [StudentTeacherController::class, 'edit'])->name('studentTeachers.edit');
     Route::put('/studentTeachers/update/{id}', [StudentTeacherController::class, 'update'])->name('studentTeachers.update');
+    Route::get('/studentTeachers/import', [StudentTeacherController::class, 'import'])->name('studentTeachers.import');
+    Route::post('/studentTeachers/importPost', [StudentTeacherController::class, 'importPost'])->name('studentTeachers.importPost');
 });
 
 require __DIR__.'/auth.php';

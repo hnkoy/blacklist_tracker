@@ -23,6 +23,7 @@ class TeacherService {
         $teachers = StudentTeacher::with( 'schoolBlackListed' )
         ->withCount( 'schoolBlackListed' )
         ->with('university')
+        ->orderBy('created_at','DESC')
         ->paginate( $n );
 
         return $teachers;

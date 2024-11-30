@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\StudentTeacher;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StudentTeacher\ImportStudentTeacherRequest;
 use App\Http\Requests\StudentTeacher\StoreStudentTeacherRequest;
+use App\Imports\StudentTeacherImport;
 use App\Models\University;
 use App\Services\studentTeacher\TeacherService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StudentTeacherController extends Controller
 {
@@ -89,6 +92,22 @@ class StudentTeacherController extends Controller
             return redirect()->route('studentTeachers')->with('error', 'Failed to create school. Please try again later.');
 
         }
+
+
+
+    }
+
+    public function import() {
+
+
+        return Inertia::render( 'StudentTeacher/form/ImportPage');
+    }
+
+    public function importPost(ImportStudentTeacherRequest $request) {
+
+
+            Excel::import(new StudentTeacherImport(), $request->file('file'));
+            // return redirect()->route( 'studentTeachers' )->with( 'success', 'Item imported successfully.' );
 
 
 

@@ -45,8 +45,8 @@ export default function StudentTeacherPage() {
                 <LinkButton href={route('studentTeachers.create')} className="ms-4">
                     Add New
                 </LinkButton>
-                <LinkButton className="ms-4">
-                    Import file
+                <LinkButton  href={route('studentTeachers.import')}  className="ms-4">
+                    Import list
                 </LinkButton>
             </div>
             <div className="py-12">
