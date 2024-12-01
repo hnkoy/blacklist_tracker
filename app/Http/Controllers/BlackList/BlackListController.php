@@ -68,13 +68,13 @@ class BlackListController extends Controller
         if($request->document_type=='IMAGE') {
             $request->validate(['file_path' => 'required|file|mimes:jpg,jpeg,png|max:2048']);
             $url = $request->file('file_path')->store('uploads', 'public');
-            $filePath=env('APP_URL').'/storage/'.$url;
+            $filePath=env('APP_URL').'/'.$url;
         }
 
         if($request->document_type=='PDF') {
             $request->validate(['file_path' => 'required|file|mimes:pdf|max:2048']);
             $url = $request->file('file_path')->store('uploads', 'public');
-            $filePath=env('APP_URL').'/storage/'.$url;
+            $filePath=env('APP_URL').'/'.$url;
         }
         if($request->document_type=='AUDIO') {
             $request->validate(['file_path' => 'required|file|mimes:mp3|max:2048']);
