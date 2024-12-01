@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\School;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\School\SearchByNameRequest;
 use App\Http\Requests\School\StoreSchoolRequest;
 use App\Models\School;
 use App\Services\school\SchoolService;
@@ -21,6 +22,12 @@ class SchoolController extends Controller {
         $data_list = $this->school_service->toGetAll();
         return Inertia::render( 'School/Page', [ 'school_data'=>$data_list ] );
     }
+
+    public function SearchByName(SearchByNameRequest $request) {
+        $data_list = $this->school_service->toGetByName($request->name);
+        return Inertia::render( 'School/Page', [ 'school_data'=>$data_list ] );
+    }
+
 
     public function create() {
 

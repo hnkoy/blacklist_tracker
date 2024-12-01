@@ -24,7 +24,12 @@
         "@fortawesome/fontawesome-svg-core": "^6.7.1",
         "@fortawesome/free-solid-svg-icons": "^6.7.1",
         "@fortawesome/react-fontawesome": "^0.2.2",
+        "@nextui-org/accordion": "^2.0.40",
+        "@nextui-org/listbox": "^2.1.27",
+        "@nextui-org/system": "^2.2.6",
+        "@nextui-org/theme": "^2.2.11",
         "@szhsin/react-accordion": "^1.2.6",
+        "framer-motion": "^11.12.0",
         "react-select": "^5.8.3",
         "react-toastify": "^10.0.6"
     }

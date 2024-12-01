@@ -56,13 +56,15 @@ class BlackListService {
         return $blacklist;
     }
 
-    public function toGetByTeacher( $student_teacher_id ) {
+    public static function toGetByTeacher( $student_teacher_id ) {
         $blacklist = SchoolBlackList::where( 'student_teacher_id', $student_teacher_id )
         ->with( 'school' )
+        ->with( 'studentTeacher' )
         ->with( 'blackListedReasons' )
         ->with( 'AttachedDocuments' )
         ->withCount( 'blackListedReasons' )
         ->withCount( 'AttachedDocuments' )
+        ->orderBy('created_at','DESC')
         ->get();
         return $blacklist;
     }

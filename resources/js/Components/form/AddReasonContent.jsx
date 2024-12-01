@@ -27,12 +27,8 @@ export default function AddReasonContent({ ...props }) {
                         <div key={index}>
 
                             <div>
-                                <InputLabel htmlFor="reason" value="Main Reason" />
-                                {/* <Select className="mt-1 block w-full" options={props.reason_options}
-                                //  value={form.common_reason_id}
-                                 name='common_reason_id'
-                                 onChange={event => handleFormChange(event.common_reason_id, index)}
-                                 /> */}
+                                <InputLabel htmlFor="reason" value="Bad behavior" />
+
 
                                 <SelectInput
                                     id="common_reason_id"
@@ -44,7 +40,7 @@ export default function AddReasonContent({ ...props }) {
                                     required
                                     autoComplete="common_reason_id"
                                 >
-                                    <option disabled defaultValue value="">select behavior</option>
+                                    <option disabled defaultValue value="">select one</option>
                                     {props.reason_options}
                                 </SelectInput>
 
@@ -68,7 +64,7 @@ export default function AddReasonContent({ ...props }) {
                                     autoComplete="comment"
                                 />
 
-                                {/* <InputError className="mt-2" message={errors.province} /> */}
+
                             </div>
 
                             <PrimaryButton
@@ -88,7 +84,7 @@ export default function AddReasonContent({ ...props }) {
                     onClick={addFields}
 
                 >
-                    Add Reason
+                    Add bad behavior
                 </PrimaryButton>
 
 

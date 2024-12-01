@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/schools/edit/{id}', [SchoolController::class, 'edit'])->name('school.edit');
     Route::put('/schools/update/{id}', [SchoolController::class, 'update'])->name('school.update');
     Route::get('/schools/{id}', [SchoolController::class, 'show'])->name('school.show');
+    Route::post('/schools/search', [SchoolController::class, 'SearchByName'])->name('school.search');
 
     // routes student teacher  management
     Route::get('/studentTeachers', [StudentTeacherController::class, 'index'])->name('studentTeachers');
@@ -40,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/studentTeachers/importPost', [StudentTeacherController::class, 'importPost'])->name('studentTeachers.importPost');
 
     Route::get('/studentTeachers/show/{id}', [StudentTeacherController::class, 'show'])->name('studentTeachers.show');
+    Route::post('/studentTeachers/search', [StudentTeacherController::class, 'SearchByName'])->name('studentTeacher.search');
 
     // blakList routes
     Route::get('/blackList/create', [BlackListController::class, 'create'])->name('blackList.create');

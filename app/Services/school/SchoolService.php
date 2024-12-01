@@ -35,10 +35,11 @@ class SchoolService {
     }
 
     public function toGetByName( $name ){
-        $school = School::where( 'name', $name )
+        $school = School::whereLike('name', '%'.$name.'%')
         ->with( 'blackListedTeachers' )
         ->withCount( 'blackListedTeachers' )
-        ->get();
+        ->orderBy('created_at','DESC')
+        ->paginate(100);
         return $school;
     }
 

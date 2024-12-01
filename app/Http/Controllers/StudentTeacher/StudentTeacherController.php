@@ -4,9 +4,11 @@ namespace App\Http\Controllers\StudentTeacher;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentTeacher\ImportStudentTeacherRequest;
+use App\Http\Requests\StudentTeacher\SearchTeacherByNameRequest;
 use App\Http\Requests\StudentTeacher\StoreStudentTeacherRequest;
 use App\Imports\StudentTeacherImport;
 use App\Models\University;
+use App\Services\blackList\BlackListService;
 use App\Services\studentTeacher\TeacherService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -20,6 +22,11 @@ class StudentTeacherController extends Controller
         $data_list = $this->teacherService->toGetAll();
         return Inertia::render('StudentTeacher/Page',['student_teacher_data'=>$data_list]);
 
+    }
+
+    public function SearchByName(SearchTeacherByNameRequest $request) {
+        $data_list = $this->teacherService->toGetByName($request->name);
+        return Inertia::render('StudentTeacher/Page',['student_teacher_data'=>$data_list]);
     }
 
     public function create() {
@@ -57,6 +64,8 @@ class StudentTeacherController extends Controller
 
     public function show($id) {
         $studentTeacher = $this->teacherService->toGetById( $id );
+        $blacklist=BlackListService::toGetByTeacher($id);
+        $studentTeacher['blacklist'] = $blacklist;
 
         return Inertia::render( 'StudentTeacher/show/Page',[
         'studentTeacher'=>$studentTeacher] );

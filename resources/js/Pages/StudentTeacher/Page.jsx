@@ -1,10 +1,14 @@
 
 import TeacherCard from '@/Components/cards/TeacherCard';
+import InputError from '@/Components/InputError';
+import InputLabel from '@/Components/InputLabel';
 import LinkButton from '@/Components/LinkButton';
+import PrimaryButton from '@/Components/PrimaryButton';
+import TextInput from '@/Components/TextInput';
 
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, router, usePage } from '@inertiajs/react';
+import { Head, router, useForm, usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -12,16 +16,27 @@ export default function StudentTeacherPage() {
     const student_teacher_list = usePage().props.student_teacher_data;
     const flash = usePage().props.flash;
 
-    useEffect(()=>{
-        if(flash.message.success) {
+    const { data, setData, reset, post, errors, processing, recentlySuccessful } =
+        useForm({
+            name: '',
+        });
+
+    const submit = (e) => {
+        e.preventDefault();
+        post(route('studentTeacher.search'),);
+        // reset();
+    };
+
+    useEffect(() => {
+        if (flash.message.success) {
             toast.success(flash.message.success);
         }
 
-        if(flash.message.error) {
+        if (flash.message.error) {
             toast.success(flash.message.error);
         }
 
-    },[flash])
+    }, [flash])
 
     // console.log(student_teacher_list);
 
@@ -30,10 +45,10 @@ export default function StudentTeacherPage() {
             router.delete(`/studentTeachers/destroy/${id}`)
         }
     };
-// studentTeachersc
+    // studentTeachersc
     const student_teacherItems = student_teacher_list?.data?.map((item) => (
         <TeacherCard
-            show_route={route('studentTeachers.show',item?.id)}
+            show_route={route('studentTeachers.show', item?.id)}
             route={route('studentTeachers.edit', item.id)}
             onDelete={() => handleDelete(item.id)}
             school_blacklisted={item.school_black_listed_count}
@@ -54,14 +69,44 @@ export default function StudentTeacherPage() {
         >
             <Head title="Student Teacher" />
             <ToastContainer />
-            <div className="mt-4  px-12 flex items-center justify-end">
+            <div className="mt-4  px-12 grid grid-cols-2 items-center  ">
+                <form onSubmit={submit} >
+                    <div className="px-12 flex items-center  justify-start">
+                        <div className='px-5'>
 
-                <LinkButton href={route('studentTeachers.create')} className="ms-4">
-                    Add New
-                </LinkButton>
-                <LinkButton  href={route('studentTeachers.import')}  className="ms-4">
-                    Import list
-                </LinkButton>
+
+                            <TextInput
+                                id="name"
+                                placeholder="Type a teacher name"
+                                className="mt-1 block w-full"
+                                value={data.name}
+                                onChange={(e) => setData('name', e.target.value)}
+                                required
+                                isFocused
+                                autoComplete="name"
+                            />
+
+                            <InputError className="mt-2" message={errors.name} />
+                        </div>
+                        <PrimaryButton disabled={processing} >Search</PrimaryButton>
+                        <div>
+                            <LinkButton href={route('studentTeachers')} className="ms-4">
+                                Reset search
+                            </LinkButton>
+                        </div>
+
+                    </div>
+                </form>
+
+                <div className="px-12 flex  items-center justify-end">
+                    <LinkButton href={route('studentTeachers.create')} className="ms-4">
+                        Add New
+                    </LinkButton>
+                    <LinkButton href={route('studentTeachers.import')} className="ms-4">
+                        Import list
+                    </LinkButton>
+                </div>
+
             </div>
             <div className="py-12">
 

@@ -39,10 +39,12 @@ class TeacherService {
     }
 
     public function toGetByName( $name ){
-        $teacher = StudentTeacher::where('name', $name)
-        ->with('schoolBlackListed')
-        ->withCount('schoolBlackListed')
-        ->get();
+        $teacher = StudentTeacher::whereLike('firstname', '%'.$name.'%')
+       -> with( 'schoolBlackListed' )
+        ->withCount( 'schoolBlackListed' )
+        ->with('university')
+        ->orderBy('created_at','DESC')
+        ->paginate( 100 );
         return $teacher;
     }
 

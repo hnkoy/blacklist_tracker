@@ -1,4 +1,5 @@
 
+import SchoolBlackListCard from '@/Components/cards/SchoolBlackListCard';
 import SchoolCard from '@/Components/cards/SchoolCard';
 import TeacherCard from '@/Components/cards/TeacherCard';
 import LinkButton from '@/Components/LinkButton';
@@ -11,7 +12,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 export default function ShowPage() {
     const studentTeacher = usePage().props.studentTeacher;
-    const schools = studentTeacher?.school_black_listed;
+    const schools = studentTeacher?.blacklist;
     const flash = usePage().props.flash;
 
     useEffect(()=>{
@@ -25,22 +26,17 @@ export default function ShowPage() {
 
     },[flash])
 
-    console.log(schools);
 
-    const handleDelete = (id) => {
-        if (window.confirm("Are you sure you want to delete this item?")) {
-            router.delete(`/studentTeachers/destroy/${id}`)
-        }
-    };
+
+
 
     const schoolItems = schools?.map((item) => (
-        <SchoolCard
-           show_route={route('school.show',  item.id)}
-            key={item.id}
-            route={route('school.edit', item.id)}
-            onDelete={() => handleDelete(item.id)}
-            name={item.name}
-            blackList_number={item.black_listed_teachers_count}
+        <SchoolBlackListCard
+            reasons={item?.black_listed_reasons}
+            name={item?.student_teacher?.firstname + ' ' + item?.student_teacher?.lastname}
+            school={item?.school?.name}
+            file_number={item?.attached_documents_count}
+            reason_number={item.black_listed_reasons_count}
         />
     ));
 

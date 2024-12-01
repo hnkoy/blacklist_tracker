@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Accordion, AccordionItem } from "@nextui-org/accordion";
 import BlackListDetails from "../BlackListDetails";
 
-export default function BlackListItem(props) {
+export default function SchoolBlackListCard(props) {
 
     return (
         <div className="overflow-hidden cursor-pointer    bg-white shadow-sm sm:rounded-lg">
@@ -12,17 +12,17 @@ export default function BlackListItem(props) {
             <div className="p-6 text-gray-900 flex">
 
                 <div className="border h-10 flex justify-center items-center w-10  rounded-full">
-                    <FontAwesomeIcon icon={faUserSecret} />
+                    <FontAwesomeIcon icon={faSchool} />
 
                 </div>
 
                 <div className="ml-3 flex flex-col">
-                    <span className=" font-bold">{props.name}</span>
+                    <span className=" font-bold">{props.school}</span>
 
 
                     <div className=" text-xs mt-1  text-gray-400">
-                        <FontAwesomeIcon icon={faSchool} />
-                        <span className="font-extralight ml-1  ">{props.school}</span>
+                        <FontAwesomeIcon icon={faUserSecret} />
+                        <span className="font-extralight ml-1  ">{props.name}</span>
                     </div>
 
 
