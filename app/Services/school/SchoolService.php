@@ -21,14 +21,15 @@ class SchoolService {
     public function toGetAll( $n = 100 ) {
         $blacklist = School::with( 'blackListedTeachers' )
         ->withCount( 'blackListedTeachers' )
+        ->orderBy('created_at','DESC')
         ->paginate( $n );
 
         return $blacklist;
     }
 
     public function toGetById( $id ): Model |null {
-        $school = School::
-        with( 'blackListedTeachers' )
+        $school = School::with( 'blackListedTeachers' )
+        ->withCount( 'blackListedTeachers' )
         ->findOrFail( $id );
         return $school;
     }

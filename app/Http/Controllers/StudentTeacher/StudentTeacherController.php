@@ -55,6 +55,13 @@ class StudentTeacherController extends Controller
         'studentTeacher'=>$studentTeacher] );
     }
 
+    public function show($id) {
+        $studentTeacher = $this->teacherService->toGetById( $id );
+
+        return Inertia::render( 'StudentTeacher/show/Page',[
+        'studentTeacher'=>$studentTeacher] );
+    }
+
 
     public function update( StoreStudentTeacherRequest $request, $id ) {
 
@@ -105,9 +112,8 @@ class StudentTeacherController extends Controller
 
     public function importPost(ImportStudentTeacherRequest $request) {
 
-
             Excel::import(new StudentTeacherImport(), $request->file('file'));
-            // return redirect()->route( 'studentTeachers' )->with( 'success', 'Item imported successfully.' );
+            return redirect()->route( 'studentTeachers' )->with( 'success', 'file imported successfully.' );
 
 
 

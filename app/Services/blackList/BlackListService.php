@@ -31,6 +31,7 @@ class BlackListService {
         ->with( 'AttachedDocuments' )
         ->withCount( 'blackListedReasons' )
         ->withCount( 'AttachedDocuments' )
+        ->orderBy('created_at','DESC')
         ->paginate( $n );
 
         return $blacklist;

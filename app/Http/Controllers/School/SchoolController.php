@@ -51,6 +51,12 @@ class SchoolController extends Controller {
         return Inertia::render( 'School/form/EditPage', [ 'school'=>$school ] );
     }
 
+    public function show( $id ) {
+        $school = $this->school_service->toGetById( $id );
+        //  dd( $school );
+        return Inertia::render( 'School/show/Page', [ 'school'=>$school ] );
+    }
+
     public function update( StoreSchoolRequest $request, $id ) {
 
         try {

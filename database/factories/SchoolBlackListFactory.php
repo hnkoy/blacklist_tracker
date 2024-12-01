@@ -20,7 +20,8 @@ class SchoolBlackListFactory extends Factory
     {
         return [
            'school_id'=>School::all()->random()->id,
-           'student_teacher_id'=>StudentTeacher::all()->random()->id,   
+           'student_teacher_id'=>StudentTeacher::all()->random()->id,
+           'reference_number'=>uniqid()
         ];
     }
 }

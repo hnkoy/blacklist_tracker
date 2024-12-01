@@ -5,22 +5,35 @@ import LinkButton from '@/Components/LinkButton';
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, router, usePage } from '@inertiajs/react';
+import { useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function StudentTeacherPage() {
     const student_teacher_list = usePage().props.student_teacher_data;
+    const flash = usePage().props.flash;
+
+    useEffect(()=>{
+        if(flash.message.success) {
+            toast.success(flash.message.success);
+        }
+
+        if(flash.message.error) {
+            toast.success(flash.message.error);
+        }
+
+    },[flash])
 
     // console.log(student_teacher_list);
 
     const handleDelete = (id) => {
         if (window.confirm("Are you sure you want to delete this item?")) {
-            router.delete(`/studentTeachers/destroy/${id}`, {
-                onSuccess: () => alert('Item deleted successfully')
-            })
+            router.delete(`/studentTeachers/destroy/${id}`)
         }
     };
-
+// studentTeachersc
     const student_teacherItems = student_teacher_list?.data?.map((item) => (
         <TeacherCard
+            show_route={route('studentTeachers.show',item?.id)}
             route={route('studentTeachers.edit', item.id)}
             onDelete={() => handleDelete(item.id)}
             school_blacklisted={item.school_black_listed_count}
@@ -40,6 +53,7 @@ export default function StudentTeacherPage() {
             }
         >
             <Head title="Student Teacher" />
+            <ToastContainer />
             <div className="mt-4  px-12 flex items-center justify-end">
 
                 <LinkButton href={route('studentTeachers.create')} className="ms-4">

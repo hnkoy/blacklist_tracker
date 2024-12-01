@@ -1,0 +1,99 @@
+
+import React from 'react'
+import PrimaryButton from '../PrimaryButton'
+import TextAreaInput from '../TextAreaInput'
+import InputLabel from '../InputLabel'
+import SelectInput from '../SelectInput'
+
+
+
+
+
+
+
+export default function AddReasonContent({ ...props }) {
+    const handleFormChange = props.handleFormChange
+    const formFields = props.formFields
+    const addFields = props.addFields
+    const removeFields = props.removeFields
+
+
+
+    return (
+        <div>
+            {
+                formFields?.map((form, index) => {
+                    return (
+                        <div key={index}>
+
+                            <div>
+                                <InputLabel htmlFor="reason" value="Main Reason" />
+                                {/* <Select className="mt-1 block w-full" options={props.reason_options}
+                                //  value={form.common_reason_id}
+                                 name='common_reason_id'
+                                 onChange={event => handleFormChange(event.common_reason_id, index)}
+                                 /> */}
+
+                                <SelectInput
+                                    id="common_reason_id"
+                                    type="select"
+                                    name='common_reason_id'
+                                    className="mt-1 block w-full"
+                                    value={form.common_reason_id}
+                                    onChange={event => handleFormChange(event, index)}
+                                    required
+                                    autoComplete="common_reason_id"
+                                >
+                                    <option disabled defaultValue value="">select behavior</option>
+                                    {props.reason_options}
+                                </SelectInput>
+
+
+                                {/* <InputError className="mt-2" message={errors.gender} /> */}
+                            </div>
+
+                            <div className='mt-8 mb-2'>
+                                <InputLabel htmlFor="comment" value="Tell us more" />
+
+                                <TextAreaInput
+                                    rows="4"
+                                    cols="50"
+                                    id="comment"
+                                    name='comment'
+                                    className="mt-1 block w-full"
+                                    value={form.comment}
+                                    onChange={event => handleFormChange(event, index)}
+                                    required
+                                    isFocused
+                                    autoComplete="comment"
+                                />
+
+                                {/* <InputError className="mt-2" message={errors.province} /> */}
+                            </div>
+
+                            <PrimaryButton
+                                onClick={() => removeFields(index, form.id)}
+
+                            >
+                                Remove
+                            </PrimaryButton>
+
+                            <hr className='my-4' />
+                        </div>
+                    )
+                })
+            }
+            <div className='flex'>
+                <PrimaryButton
+                    onClick={addFields}
+
+                >
+                    Add Reason
+                </PrimaryButton>
+
+
+            </div>
+
+        </div>
+    )
+}

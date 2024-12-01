@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
+
     return redirect()->route('login');
 });
 
@@ -26,6 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/schools/destroy/{id}', [SchoolController::class, 'destroy'])->name('school.destroy');
     Route::get('/schools/edit/{id}', [SchoolController::class, 'edit'])->name('school.edit');
     Route::put('/schools/update/{id}', [SchoolController::class, 'update'])->name('school.update');
+    Route::get('/schools/{id}', [SchoolController::class, 'show'])->name('school.show');
 
     // routes student teacher  management
     Route::get('/studentTeachers', [StudentTeacherController::class, 'index'])->name('studentTeachers');
@@ -36,6 +38,15 @@ Route::middleware('auth')->group(function () {
     Route::put('/studentTeachers/update/{id}', [StudentTeacherController::class, 'update'])->name('studentTeachers.update');
     Route::get('/studentTeachers/import', [StudentTeacherController::class, 'import'])->name('studentTeachers.import');
     Route::post('/studentTeachers/importPost', [StudentTeacherController::class, 'importPost'])->name('studentTeachers.importPost');
+
+    Route::get('/studentTeachers/show/{id}', [StudentTeacherController::class, 'show'])->name('studentTeachers.show');
+
+    // blakList routes
+    Route::get('/blackList/create', [BlackListController::class, 'create'])->name('blackList.create');
+    Route::post('/blackList/store', [BlackListController::class, 'store'])->name('blackList.store');
+    Route::get('/blackList/attach/{reference}', [BlackListController::class, 'attach'])->name('blackList.attach');
+    Route::post('/blackList/storeDocument', [BlackListController::class, 'storeDocument'])->name('blackList.storeDocument');
+
 });
 
 require __DIR__.'/auth.php';

@@ -1,12 +1,17 @@
+
 import SchoolCard from '@/Components/cards/SchoolCard';
+import TeacherCard from '@/Components/cards/TeacherCard';
 import LinkButton from '@/Components/LinkButton';
+
+
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, router, usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 
-export default function SchoolPage() {
-    const school_list = usePage().props.school_data;
+export default function ShowPage() {
+    const studentTeacher = usePage().props.studentTeacher;
+    const schools = studentTeacher?.school_black_listed;
     const flash = usePage().props.flash;
 
     useEffect(()=>{
@@ -20,16 +25,15 @@ export default function SchoolPage() {
 
     },[flash])
 
+    console.log(schools);
+
     const handleDelete = (id) => {
-        if (window.confirm("Are you sure you want to delete this school?")) {
-            router.delete(`/schools/destroy/${id}`)
+        if (window.confirm("Are you sure you want to delete this item?")) {
+            router.delete(`/studentTeachers/destroy/${id}`)
         }
     };
 
-
-
-
-    const schoolItems = school_list?.data?.map((item) => (
+    const schoolItems = schools?.map((item) => (
         <SchoolCard
            show_route={route('school.show',  item.id)}
             key={item.id}
@@ -39,25 +43,22 @@ export default function SchoolPage() {
             blackList_number={item.black_listed_teachers_count}
         />
     ));
+
+
+
     return (
         <AuthenticatedLayout
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    School List
+           {studentTeacher?.school_black_listed_count} {studentTeacher?.school_black_listed_count>1?'schools':'school'} that have blacklisted the student teacher  <span className=' text-red-400'>{studentTeacher?.firstname +' '+studentTeacher?.lastname}  </span>
                 </h2>
             }
         >
-            <Head title="Dashboard" />
+            <Head title="Student Teacher" />
             <ToastContainer />
-            <div className="mt-4  px-12 flex items-center justify-end">
-
-                <LinkButton href={route('school.create')} className="ms-4">
-                    Add New
-                </LinkButton>
-
-            </div>
 
             <div className="py-12">
+
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className='grid grid-cols-3 gap-4'>
                         {schoolItems}

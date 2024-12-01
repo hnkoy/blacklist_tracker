@@ -4,7 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function BlackListItem(props) {
     return (
         <div className="overflow-hidden cursor-pointer    bg-white shadow-sm sm:rounded-lg">
+
             <div className="p-6 text-gray-900 flex">
+
                 <div className="border h-10 flex justify-center items-center w-10  rounded-full">
                 <FontAwesomeIcon icon={faUserSecret} />
 

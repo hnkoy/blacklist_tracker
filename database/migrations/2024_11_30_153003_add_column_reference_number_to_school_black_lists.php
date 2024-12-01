@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('attached_documents', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('school_black_list_id')->constrained()->onDelete('cascade');
-            $table->string('document_type');
-            $table->string('file_path');
-            $table->timestamps();
+        Schema::table('school_black_lists', function (Blueprint $table) {
+            $table->string('reference_number');
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('attached_documents');
+        Schema::table('school_black_lists', function (Blueprint $table) {
+            //
+        });
     }
 };

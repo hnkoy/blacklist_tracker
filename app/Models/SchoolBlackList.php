@@ -13,6 +13,7 @@ class SchoolBlackList extends Model
     protected $fillable = [
 		'school_id',
         'student_teacher_id',
+        'reference_number'
 	];
 
     public function school()
@@ -37,5 +38,10 @@ class SchoolBlackList extends Model
     public function AttachedDocuments()
 	{
 		return $this->hasMany(AttachedDocument::class);
+	}
+
+    public function blackListReasons()
+	{
+		return $this->hasMany(BlackListReason::class);
 	}
 }
