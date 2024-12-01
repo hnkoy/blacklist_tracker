@@ -74,6 +74,8 @@ Set Up a Symlink to link the storage directory to the public
 
     npm run dev
 
+You will found a csv file sample name student_teacher_list.csv in the project directory to test the upload file feature make sure to check if the universities code exist in your Database otherwise you will have a validation error
+
 **Go to the App** 
 
     http://127.0.0.1:8000/
