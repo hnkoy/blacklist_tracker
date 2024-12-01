@@ -58,6 +58,12 @@ Add data testing by running
 
     php artisan db:seed
 
+Set Up a Symlink to link the storage directory to the public
+
+    php artisan storage:link
+
+
+
 **And Run using the 2 commands** 
 
 
