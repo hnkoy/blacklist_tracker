@@ -24,7 +24,7 @@ class BlackListService {
     * @return \Illuminate\Support\Collection
     */
 
-    public function toGetAll( $n = 100 ) {
+    public function toGetAll( $n = 20 ) {
         $blacklist = SchoolBlackList::with( 'school' )
         ->with( 'studentTeacher' )
         ->with( 'blackListedReasons' )

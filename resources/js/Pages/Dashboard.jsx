@@ -1,5 +1,6 @@
 import BlackListItem from '@/Components/cards/BlackListItem';
 import LinkButton from '@/Components/LinkButton';
+import Pagination from '@/Components/Pagination';
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, usePage } from '@inertiajs/react';
@@ -31,6 +32,7 @@ export default function Dashboard() {
             school={item?.school?.name}
             file_number={item?.attached_documents_count}
             reason_number={item.black_listed_reasons_count}
+            documents={item.attached_documents}
         />
     ));
 
@@ -65,6 +67,10 @@ export default function Dashboard() {
                     </div>
 
                 </div>
+                <div className='flex justify-end'>
+                <Pagination class="mt-6" links={black_list.links} />
+                </div>
+
             </div>
         </AuthenticatedLayout>
     );

@@ -3,6 +3,7 @@ import TeacherCard from '@/Components/cards/TeacherCard';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import LinkButton from '@/Components/LinkButton';
+import Pagination from '@/Components/Pagination';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 
@@ -118,6 +119,9 @@ export default function StudentTeacherPage() {
 
                     </div>
 
+                </div>
+                <div className='flex justify-end'>
+                <Pagination class="mt-6" links={student_teacher_list.links} />
                 </div>
             </div>
         </AuthenticatedLayout>

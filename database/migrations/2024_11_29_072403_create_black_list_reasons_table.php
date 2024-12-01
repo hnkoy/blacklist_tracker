@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('school_black_list_id')->constrained()->onDelete('cascade');
             $table->foreignId('common_reason_id')->constrained()->onDelete('cascade');
-            $table->string('comment');
+            $table->text('comment');
             $table->timestamps();
         });
     }

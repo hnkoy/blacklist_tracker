@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BlackList;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BlackList\BlackListStoreRequest;
+use App\Models\AttachedDocument;
 use App\Models\CommonReason;
 use App\Models\School;
 use App\Models\StudentTeacher;
@@ -63,18 +64,35 @@ class BlackListController extends Controller
     }
 
     public function storeDocument(Request $request) {
-        $input = $request->all();
-    
-        $file = $input['file_path']->getClientOriginalName();
-        $filePathWithPublic = $input['file_path']->storeAs('public/images', $file);
-        return $filePathWithPublic;
-        // Store the file
-        // if ($request->hasFile('file_path')) {
-        //     $path = $request->file('file_path')->store('uploads', 'public');
+        $filePath='';
+        if($request->document_type=='IMAGE') {
+            $request->validate(['file_path' => 'required|file|mimes:jpg,jpeg,png|max:2048']);
+            $url = $request->file('file_path')->store('uploads', 'public');
+            $filePath=env('APP_URL').'/'.$url;
+        }
 
-        //     // Return success response
-        //     return back()->with('success', 'File uploaded successfully');
-        // }
+        if($request->document_type=='PDF') {
+            $request->validate(['file_path' => 'required|file|mimes:pdf|max:2048']);
+            $url = $request->file('file_path')->store('uploads', 'public');
+            $filePath=env('APP_URL').'/'.$url;
+        }
+        if($request->document_type=='AUDIO') {
+            $request->validate(['file_path' => 'required|file|mimes:mp3|max:2048']);
+            $url = $request->file('file_path')->store('uploads', 'public');
+            $filePath=env('APP_URL').'/storage/'.$url;
+        }
+        if($request->document_type=='VIDEO') {
+            $filePath = $request->file_path;
+        }
 
+
+
+        AttachedDocument::create([
+            'school_black_list_id' => $request->school_black_list_id,
+            'document_type' => $request->document_type,
+            'file_path' => $filePath,
+        ]);
+
+        return redirect()->back()->with( 'success', 'Proof document added successfully.' );
     }
 }

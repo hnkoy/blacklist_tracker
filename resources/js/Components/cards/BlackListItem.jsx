@@ -48,7 +48,7 @@ export default function BlackListItem(props) {
 
                     <Accordion>
                         <AccordionItem key="1" aria-label="Accordion 1" title="See all the details">
-                            <BlackListDetails reasons={props.reasons}/>
+                            <BlackListDetails documents={props?.documents} reasons={props.reasons}/>
                         </AccordionItem>
 
                     </Accordion>

@@ -19,7 +19,7 @@ class TeacherService {
         return $teacher;
     }
 
-    public function toGetAll( $n = 100 ) {
+    public function toGetAll( $n = 20 ) {
         $teachers = StudentTeacher::with( 'schoolBlackListed' )
         ->withCount( 'schoolBlackListed' )
         ->with('university')
@@ -44,7 +44,7 @@ class TeacherService {
         ->withCount( 'schoolBlackListed' )
         ->with('university')
         ->orderBy('created_at','DESC')
-        ->paginate( 100 );
+        ->paginate( 20 );
         return $teacher;
     }
 

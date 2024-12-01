@@ -18,7 +18,7 @@ class SchoolService {
         return $school;
     }
 
-    public function toGetAll( $n = 100 ) {
+    public function toGetAll( $n = 20 ) {
         $blacklist = School::with( 'blackListedTeachers' )
         ->withCount( 'blackListedTeachers' )
         ->orderBy('created_at','DESC')
@@ -39,7 +39,7 @@ class SchoolService {
         ->with( 'blackListedTeachers' )
         ->withCount( 'blackListedTeachers' )
         ->orderBy('created_at','DESC')
-        ->paginate(100);
+        ->paginate(20);
         return $school;
     }
 

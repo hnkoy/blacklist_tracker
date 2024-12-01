@@ -2,7 +2,7 @@
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Transition } from '@headlessui/react';
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { Head, router, useForm, usePage } from '@inertiajs/react';
 import AttachedDocumentItems from './AttachedDocumentItems';
 import LinkButton from '@/Components/LinkButton';
 import { useEffect, useState } from 'react';
@@ -15,15 +15,11 @@ import InputError from '@/Components/InputError';
 
 export default function AttachedDocumentPage(props) {
     const flash = usePage().props.flash;
+    const errors = usePage().props.errors;
     const blackList = usePage().props.blackList;
-    const [previewUrl, setPreviewUrl] = useState(null);
-    const { data, setData, reset, post, errors, processing, recentlySuccessful } =
-        useForm({
-            document_type: '',
-            file_path: '',
-            school_black_list_id: blackList?.id
+    const [file, setFile] = useState(null);
+    const [document_type, setDocumentType] = useState(null);
 
-        });
 
     useEffect(() => {
         if (flash.message.success) {
@@ -38,18 +34,30 @@ export default function AttachedDocumentPage(props) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('blackList.storeDocument'),{
-            forceFormData: true,
-        });
-        if (recentlySuccessful) {
-            reset();
+        const formData = new FormData();
+        if(document_type!='VIDEO'){
+            if (file && file.size > 5 * 1024 * 1024) {
+                alert('File size exceeds 5MB!');
+                return
+            }
         }
 
-    };
+            formData.append("file_path", file);
+            formData.append("document_type", document_type);
+            formData.append("school_black_list_id", blackList?.id);
+            router.post("/blackList/storeDocument", formData, {
+                onProgress: (progress) => {
+                    console.log(progress.percentage); // Track upload progress
+                },
+                onSuccess: () => {
+                    e.target.value = '';
+                    setFile('')
+                    setDocumentType('')
+                }
+            });
 
-    const handleFileChange = (event) => {
-        setData(event.target.name, event.target.files[0]);
-    };
+
+    }
 
 
     return (
@@ -78,7 +86,7 @@ export default function AttachedDocumentPage(props) {
                                 </p>
                             </header>
 
-                            <form onSubmit={submit}  className="mt-6 space-y-6">
+                            <form onSubmit={submit} className="mt-6 space-y-6">
                                 {/* <AttachedDocumentItems /> */}
                                 <div className='mt-8 mb-2'>
                                     <InputLabel htmlFor="document_type" value="Document type" />
@@ -88,8 +96,9 @@ export default function AttachedDocumentPage(props) {
                                         type="select"
                                         name='document_type'
                                         className="mt-1 block w-full"
-                                        value={data.document_type}
-                                        onChange={(e) => setData('document_type', e.target.value)}
+                                        value={document_type}
+                                        onChange={(e) => setDocumentType(e.target.value)}
+
                                         required
                                         autoComplete="document_type"
                                     >
@@ -100,32 +109,44 @@ export default function AttachedDocumentPage(props) {
                                         <option value="AUDIO">AUDIO</option>
                                     </SelectInput>
 
-                                    <div className='mt-8 mb-2'>
-                                        <InputLabel htmlFor="comment" value="Select file" />
 
-                                        {/* <TextInput
-                                            type='file'
 
+
+                                    {
+                                        document_type=='VIDEO' ?
+                                        <div className='mt-8 mb-2'>
+                                        <InputLabel htmlFor="file_path" value="Provide only the link of the video" />
+
+                                        <TextInput
                                             id="file_path"
-                                            name='file_path'
                                             className="mt-1 block w-full"
-                                            // value={data.file_path}
-                                            onChange={handleFileChange}
+                                            value={file}
+                                            onChange={(e) => setFile(e.target.value)}
+                                            name="file_path"
                                             required
                                             isFocused
                                             autoComplete="file_path"
-                                        /> */}
+                                        />
 
-<input
-                        id="file-upload"
-                        type="file"
-                        name='file_path'
-                        onChange={handleFileChange}
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
-                    />
+                                        <InputError className="mt-2" message={errors.street_address} />
+                                    </div>:
+                                    <div className='mt-8 mb-2'>
+                                    <InputLabel htmlFor="file" value="Select file" />
 
-                                        <InputError className="mt-2" message={errors.file_path} />
-                                    </div>
+
+
+                                    <input
+                                        id="file-upload"
+                                        type="file"
+                                        name='file_path'
+
+                                        onChange={(e) => setFile(e.target.files[0])}
+                                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
+                                    />
+
+                                    <InputError className="mt-2" message={errors.file_path} />
+                                </div>
+                                    }
 
 
                                 </div>
@@ -144,7 +165,7 @@ export default function AttachedDocumentPage(props) {
 
                                     </div>
 
-                                    <Transition
+                                    {/* <Transition
                                         show={recentlySuccessful}
                                         enter="transition ease-in-out"
                                         enterFrom="opacity-0"
@@ -154,7 +175,7 @@ export default function AttachedDocumentPage(props) {
                                         <p className="text-sm text-gray-600">
                                             Saved.
                                         </p>
-                                    </Transition>
+                                    </Transition> */}
                                 </div>
                             </form>
                         </section>

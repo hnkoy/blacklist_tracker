@@ -1,6 +1,7 @@
 import SchoolCard from '@/Components/cards/SchoolCard';
 import InputError from '@/Components/InputError';
 import LinkButton from '@/Components/LinkButton';
+import Pagination from '@/Components/Pagination';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
@@ -111,6 +112,9 @@ export default function SchoolPage() {
                         {schoolItems}
                     </div>
 
+                </div>
+                <div className='flex justify-end'>
+                <Pagination class="mt-6" links={school_list.links} />
                 </div>
             </div>
         </AuthenticatedLayout>
