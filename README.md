@@ -36,7 +36,6 @@ When navigating to a specific student teacher page, I should see a list of all s
 
 ## Installation & Run
 
-The file explorer is accessible using the button in left corner of the navigation bar. You can create a new file by clicking the **New file** button in the file explorer. You can also create folders by clicking the **New folder** button.
 
 Clone the project
 
